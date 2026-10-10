@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0d0e12;
+  --color-bg-alt: #14161c;
+  --color-card: #1a1d25;
+  --color-line: #262a35;
+  --color-muted: #a3a8b5;
+  --color-accent: #ff6b2c;
+  --color-accent-2: #ff2e63;
+  --font-head: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+@utility bg-brand {
+  background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+}
+@utility text-gradient {
+  background-image: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-bg text-gray-100 font-body antialiased leading-relaxed; }
+  h1, h2, h3, h4 { @apply font-head leading-tight; }
+}
+
+/* Scroll reveal — in a layer so Tailwind transition utilities can extend it */
+@layer components {
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+details summary::-webkit-details-marker { display: none; }
+
+/* Chatbot */
+@keyframes chat-in { from { opacity: 0; transform: translateY(8px) scale(.97); } }
+.chat-in { animation: chat-in .3s ease-out both; }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
+.typing-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-muted); animation: typing 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: .15s; }
+.typing-dot:nth-child(3) { animation-delay: .3s; }
